@@ -13,16 +13,19 @@ public class User {
 
     private String phoneNum;
 
+    private Integer role;
+
     private Date createTime;
 
     private Date updateTime;
 
-    public User(Integer id, String username, String password, String headImgUrl, String phoneNum, Date createTime, Date updateTime) {
+    public User(Integer id, String username, String password, String headImgUrl, String phoneNum, Integer role, Date createTime, Date updateTime) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.headImgUrl = headImgUrl;
         this.phoneNum = phoneNum;
+        this.role = role;
         this.createTime = createTime;
         this.updateTime = updateTime;
     }
@@ -69,6 +72,14 @@ public class User {
 
     public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum == null ? null : phoneNum.trim();
+    }
+
+    public Integer getRole() {
+        return role;
+    }
+
+    public void setRole(Integer role) {
+        this.role = role;
     }
 
     public Date getCreateTime() {
