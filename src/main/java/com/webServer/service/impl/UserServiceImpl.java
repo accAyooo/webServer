@@ -15,9 +15,19 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public ServerResponse<String> register(User user) {
-        System.out.println(user.getPhoneNum());
-        System.out.println(userMapper.checkByPhone(user.getPhoneNum()));
+        int resultCount = 0;
 
-        return null;
+        resultCount = userMapper.checkByUsername(user.getUsername());
+
+        if (resultCount == 1)
+            return ServerResponse.createByErrorMessage("用户名已存在");
+
+        resultCount = userMapper.checkByPhone(user.getPhoneNum());
+
+        if (resultCount == 1)
+            return ServerResponse.createByErrorMessage("手机号已经被注册");
+
+        return ServerResponse.createBySuccessMessage("注册成功");
+
     }
 }
