@@ -21,4 +21,5 @@ public class UserAjaxController {
     public ServerResponse<String> register(User user) {
         return iUserService.register(user);
     }
+
 }
