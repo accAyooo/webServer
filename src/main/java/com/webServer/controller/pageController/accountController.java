@@ -1,24 +1,47 @@
-package com.webServer.util;
+package com.webServer.controller.pageController;
 
-import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
+import com.webServer.common.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.ws.Response;
 import java.awt.image.BufferedImage;
 
-public class AuthCode {
+@Controller
+@RequestMapping("/account")
+public class accountController {
 
     @Autowired(required = false)
-    private static Producer captchaProducer = null;
+    private Producer captchaProducer = null;
 
-    public static void createAuthCodeImage(HttpServletRequest request, HttpServletResponse response)
+    @RequestMapping("/login")
+    public String login(HttpServletRequest request, HttpServletResponse response) {
+
+        return "login";
+    }
+
+    @RequestMapping("/validation")
+    public Object validation(String code, HttpServletRequest request , HttpServletResponse response, Model model) {
+        HttpSession session = request.getSession();
+
+        String codeInSession = (String)session.getAttribute(Constants.AUTH_CODE_NAME);
+
+        boolean b = codeInSession.equals(code);
+
+        model.addAttribute("right", b);
+
+        return model;
+    }
+
+    @RequestMapping("/authcode.jpg")
+    public String authCode(HttpServletRequest request, HttpServletResponse response)
     throws Exception{
         HttpSession session = request.getSession();
 
@@ -42,5 +65,8 @@ public class AuthCode {
         } finally {
             out.close();
         }
+
+        return null;
     }
+
 }

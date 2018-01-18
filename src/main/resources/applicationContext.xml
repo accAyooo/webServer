@@ -9,7 +9,9 @@
      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <context:component-scan base-package="com.webServer.controller" annotation-config="true"/>
+    <context:component-scan base-package="com.webServer" annotation-config="true"/>
+
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
 
     <!--<context:annotation-config/>-->
     <aop:aspectj-autoproxy/>
