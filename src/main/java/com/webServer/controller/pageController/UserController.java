@@ -1,25 +1,37 @@
-package com.webServer.util;
+package com.webServer.controller.pageController;
 
-import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
+import com.webServer.common.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.ws.Response;
 import java.awt.image.BufferedImage;
 
-public class AuthCode {
+@Controller
+@RequestMapping("/accounts")
+public class UserController {
 
     @Autowired(required = false)
-    private static Producer captchaProducer = null;
+    Producer captchaProducer = null;
 
-    public static void createAuthCodeImage(HttpServletRequest request, HttpServletResponse response)
-    throws Exception{
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String registerPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+
+        return "register";
+    }
+
+    @RequestMapping(value = "/Kaptcha.jpg", method = RequestMethod.GET)
+    public String KaptchaImage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+//        UserValidator.createAuthCodeImage(request, response);
         HttpSession session = request.getSession();
 
         response.setDateHeader("Expires", 0);
@@ -29,7 +41,8 @@ public class AuthCode {
         response.setContentType("image/jpeg");
 
         String codeString = captchaProducer.createText();
-        session.setAttribute(com.webServer.common.Constants.AUTH_CODE_NAME, codeString);
+        System.out.println(codeString);
+        session.setAttribute(Constants.AUTH_CODE_NAME, codeString);
 
         BufferedImage bi = captchaProducer.createImage(codeString);
 
@@ -42,5 +55,7 @@ public class AuthCode {
         } finally {
             out.close();
         }
+
+        return "null";
     }
 }

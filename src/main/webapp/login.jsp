@@ -11,11 +11,18 @@
     <title>login</title>
 </head>
 <body>
-<img src="/account/authcode.jpg" alt="authcode">
+<img src="/account/authcode.jpg" alt="authcode" id="authcode">
 
 <form action="/account/validation" method="get">
     <input type="text" name="code">
     <input type="submit" >
 </form>
+
+<script type="text/javascript">
+    var btn = document.getElementById("authcode");
+    btn.onclick = function () {
+        window.location.href = window.location.href;
+    }
+</script>
 </body>
 </html>

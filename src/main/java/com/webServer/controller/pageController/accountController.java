@@ -37,7 +37,7 @@ public class accountController {
 
         model.addAttribute("right", b);
 
-        return model;
+        return "validation";
     }
 
     @RequestMapping("/authcode.jpg")
