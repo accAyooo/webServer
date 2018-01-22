@@ -9,9 +9,7 @@ public class User {
 
     private String password;
 
-    private String headImgUrl;
-
-    private String phoneNum;
+    private String email;
 
     private Integer role;
 
@@ -19,12 +17,11 @@ public class User {
 
     private Date updateTime;
 
-    public User(Integer id, String username, String password, String headImgUrl, String phoneNum, Integer role, Date createTime, Date updateTime) {
+    public User(Integer id, String username, String password, String email, Integer role, Date createTime, Date updateTime) {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.headImgUrl = headImgUrl;
-        this.phoneNum = phoneNum;
+        this.email = email;
         this.role = role;
         this.createTime = createTime;
         this.updateTime = updateTime;
@@ -58,20 +55,12 @@ public class User {
         this.password = password == null ? null : password.trim();
     }
 
-    public String getHeadImgUrl() {
-        return headImgUrl;
+    public String getEmail() {
+        return email;
     }
 
-    public void setHeadImgUrl(String headImgUrl) {
-        this.headImgUrl = headImgUrl == null ? null : headImgUrl.trim();
-    }
-
-    public String getPhoneNum() {
-        return phoneNum;
-    }
-
-    public void setPhoneNum(String phoneNum) {
-        this.phoneNum = phoneNum == null ? null : phoneNum.trim();
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
     }
 
     public Integer getRole() {

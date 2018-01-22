@@ -22,7 +22,7 @@ public class UserServiceImpl implements IUserService {
         if (resultCount == 1)
             return ServerResponse.createByErrorMessage("用户名已存在");
 
-        resultCount = userMapper.checkByPhone(user.getPhoneNum());
+        resultCount = userMapper.checkByEmail(user.getEmail());
 
         if (resultCount == 1)
             return ServerResponse.createByErrorMessage("手机号已经被注册");
