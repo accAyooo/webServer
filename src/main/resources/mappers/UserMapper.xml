@@ -8,12 +8,18 @@
       <arg column="password" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="email" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="role" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="staff" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="mark" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="last_active_time" jdbcType="DATE" javaType="java.util.Date" />
+      <arg column="icon_url_small" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="icon_url_normal" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="create_time" jdbcType="DATE" javaType="java.util.Date" />
       <arg column="update_time" jdbcType="DATE" javaType="java.util.Date" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, username, password, email, role, create_time, update_time
+    id, username, password, email, role, staff, mark, last_active_time, icon_url_small, 
+    icon_url_normal, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -21,25 +27,19 @@
     from user
     where id = #{id,jdbcType=INTEGER}
   </select>
-    <select id="checkByUsername" resultType="int" parameterType="string">
-        SELECT COUNT(1) FROM user
-        WHERE email = #{username}
-    </select>
-    <select id="checkByEmail" resultType="int" parameterType="string">
-        SELECT COUNT(1) FROM user
-        WHERE email = #{email}
-    </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from user
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.webServer.pojo.User" >
     insert into user (id, username, password, 
-      email, role, create_time, 
-      update_time)
+      email, role, staff, mark, 
+      last_active_time, icon_url_small, icon_url_normal, 
+      create_time, update_time)
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, now(),
-      now())
+      #{email,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, #{staff,jdbcType=BIT}, #{mark,jdbcType=INTEGER}, 
+      #{lastActiveTime,jdbcType=DATE}, #{iconUrlSmall,jdbcType=VARCHAR}, #{iconUrlNormal,jdbcType=VARCHAR}, 
+      now(), now())
   </insert>
   <insert id="insertSelective" parameterType="com.webServer.pojo.User" >
     insert into user
@@ -59,11 +59,26 @@
       <if test="role != null" >
         role,
       </if>
+      <if test="staff != null" >
+        staff,
+      </if>
+      <if test="mark != null" >
+        mark,
+      </if>
+      <if test="lastActiveTime != null" >
+        last_active_time,
+      </if>
+      <if test="iconUrlSmall != null" >
+        icon_url_small,
+      </if>
+      <if test="iconUrlNormal != null" >
+        icon_url_normal,
+      </if>
       <if test="createTime != null" >
-        create_time,
+          now(),
       </if>
       <if test="updateTime != null" >
-        update_time,
+          now(),
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -82,11 +97,26 @@
       <if test="role != null" >
         #{role,jdbcType=INTEGER},
       </if>
+      <if test="staff != null" >
+        #{staff,jdbcType=BIT},
+      </if>
+      <if test="mark != null" >
+        #{mark,jdbcType=INTEGER},
+      </if>
+      <if test="lastActiveTime != null" >
+        #{lastActiveTime,jdbcType=DATE},
+      </if>
+      <if test="iconUrlSmall != null" >
+        #{iconUrlSmall,jdbcType=VARCHAR},
+      </if>
+      <if test="iconUrlNormal != null" >
+        #{iconUrlNormal,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null" >
           now(),
       </if>
       <if test="updateTime != null" >
-        now(),
+          now(),
       </if>
     </trim>
   </insert>
@@ -105,6 +135,21 @@
       <if test="role != null" >
         role = #{role,jdbcType=INTEGER},
       </if>
+      <if test="staff != null" >
+        staff = #{staff,jdbcType=BIT},
+      </if>
+      <if test="mark != null" >
+        mark = #{mark,jdbcType=INTEGER},
+      </if>
+      <if test="lastActiveTime != null" >
+        last_active_time = #{lastActiveTime,jdbcType=DATE},
+      </if>
+      <if test="iconUrlSmall != null" >
+        icon_url_small = #{iconUrlSmall,jdbcType=VARCHAR},
+      </if>
+      <if test="iconUrlNormal != null" >
+        icon_url_normal = #{iconUrlNormal,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=DATE},
       </if>
@@ -120,8 +165,28 @@
       password = #{password,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       role = #{role,jdbcType=INTEGER},
+      staff = #{staff,jdbcType=BIT},
+      mark = #{mark,jdbcType=INTEGER},
+      last_active_time = #{lastActiveTime,jdbcType=DATE},
+      icon_url_small = #{iconUrlSmall,jdbcType=VARCHAR},
+      icon_url_normal = #{iconUrlNormal,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=DATE},
       update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="checkEmail" resultType="int" parameterType="string">
+      SELECT COUNT(1) FROM user
+      WHERE email = #{email}
+  </select>
+    <select id="checkUsername" resultType="int" parameterType="string">
+        SELECT COUNT(1) FROM user
+        WHERE username = #{username}
+    </select>
+    <select id="selectLogin" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List" />
+        from mmall_user
+        where username = #{username}
+        and password = #{password}
+    </select>
 </mapper>
