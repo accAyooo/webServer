@@ -13,16 +13,31 @@ public class User {
 
     private Integer role;
 
+    private Boolean staff;
+
+    private Integer mark;
+
+    private Date lastActiveTime;
+
+    private String iconUrlSmall;
+
+    private String iconUrlNormal;
+
     private Date createTime;
 
     private Date updateTime;
 
-    public User(Integer id, String username, String password, String email, Integer role, Date createTime, Date updateTime) {
+    public User(Integer id, String username, String password, String email, Integer role, Boolean staff, Integer mark, Date lastActiveTime, String iconUrlSmall, String iconUrlNormal, Date createTime, Date updateTime) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
         this.role = role;
+        this.staff = staff;
+        this.mark = mark;
+        this.lastActiveTime = lastActiveTime;
+        this.iconUrlSmall = iconUrlSmall;
+        this.iconUrlNormal = iconUrlNormal;
         this.createTime = createTime;
         this.updateTime = updateTime;
     }
@@ -69,6 +84,46 @@ public class User {
 
     public void setRole(Integer role) {
         this.role = role;
+    }
+
+    public Boolean getStaff() {
+        return staff;
+    }
+
+    public void setStaff(Boolean staff) {
+        this.staff = staff;
+    }
+
+    public Integer getMark() {
+        return mark;
+    }
+
+    public void setMark(Integer mark) {
+        this.mark = mark;
+    }
+
+    public Date getLastActiveTime() {
+        return lastActiveTime;
+    }
+
+    public void setLastActiveTime(Date lastActiveTime) {
+        this.lastActiveTime = lastActiveTime;
+    }
+
+    public String getIconUrlSmall() {
+        return iconUrlSmall;
+    }
+
+    public void setIconUrlSmall(String iconUrlSmall) {
+        this.iconUrlSmall = iconUrlSmall == null ? null : iconUrlSmall.trim();
+    }
+
+    public String getIconUrlNormal() {
+        return iconUrlNormal;
+    }
+
+    public void setIconUrlNormal(String iconUrlNormal) {
+        this.iconUrlNormal = iconUrlNormal == null ? null : iconUrlNormal.trim();
     }
 
     public Date getCreateTime() {

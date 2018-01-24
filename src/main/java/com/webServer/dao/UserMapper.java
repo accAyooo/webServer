@@ -1,6 +1,7 @@
 package com.webServer.dao;
 
 import com.webServer.pojo.User;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
@@ -15,7 +16,9 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
-    int checkByUsername(String username);
+    int checkEmail(String email);
 
-    int checkByEmail(String email);
+    int checkUsername(String username);
+
+    User selectLogin(@Param(value = "username")String username, @Param(value = "password")String password);
 }
