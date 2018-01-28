@@ -3,6 +3,7 @@ package com.webServer.service;
 import com.webServer.common.ServerResponse;
 import com.webServer.pojo.User;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -35,5 +36,10 @@ public interface IUserService {
      */
     public int checkEmail(String email);
 
-
+    /**
+     * 获取用户信息
+     * @param request
+     * @return
+     */
+    public ServerResponse getUserinfo(HttpServletRequest request);
 }

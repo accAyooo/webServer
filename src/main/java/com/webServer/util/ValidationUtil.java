@@ -3,7 +3,7 @@ package com.webServer.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Validation {
+public class ValidationUtil {
     private final static String EMAIL_REG = "[\\w\\.-]+@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
     private final static String MOBILE_REG = "((\\d{11})|^((\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1})|(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1}))$)";
     private final static String PASSWORD_REG = "([\\w`~!@#\\$%\\^&\\*\\(\\)_\\+\\-=\\[\\]\\{\\};:'\",<\\.>/\\?]{6,20})";

@@ -1,5 +1,6 @@
 package com.webServer.common;
 
+import com.webServer.common.enumeration.ResponseStatus;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
@@ -29,6 +30,18 @@ public class ServerResponse<T> implements Serializable {
         this.code = code;
         this.message = message;
         this.data = data;
+    }
+
+    public int getCode() {
+        return this.code;
+    }
+
+    public String getMessage() {
+        return this.message;
+    }
+
+    public T getData() {
+        return this.data;
     }
 
     @JsonIgnore

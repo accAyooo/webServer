@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,7 +23,7 @@ import javax.servlet.http.HttpSession;
  */
 
 @Controller
-@RequestMapping("/account")
+@RequestMapping("/ajax/account")
 public class UserAjaxController {
 
     @Autowired
@@ -37,7 +39,8 @@ public class UserAjaxController {
      * @return
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ServerResponse<User> login(String username, String password,
+    @ResponseBody
+    public ServerResponse login(String username, String password,
             HttpServletRequest request, HttpServletResponse response, HttpSession session) {
         return userService.login(username, password, session);
     }
@@ -51,8 +54,17 @@ public class UserAjaxController {
      * @return
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ServerResponse<String> register(User user,
+    @ResponseBody
+    public ServerResponse register(User user,
                HttpServletRequest request, HttpServletResponse response, HttpSession session) {
         return userService.register(user, session);
     }
+
+    @RequestMapping(value = "/userinfo", method = RequestMethod.GET)
+    @ResponseBody
+    public ServerResponse userinfo(
+                HttpServletRequest request, HttpServletResponse response) {
+        return userService.getUserinfo(request);
+    }
+
 }

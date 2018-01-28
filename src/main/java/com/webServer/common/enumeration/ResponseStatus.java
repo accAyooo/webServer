@@ -1,4 +1,4 @@
-package com.webServer.common;
+package com.webServer.common.enumeration;
 
 public enum ResponseStatus {
 
